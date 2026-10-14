@@ -1,6 +1,6 @@
 /** Launches the built app (npm run build first) against a fresh copy of the example scanner, runs a scan and clicks
  *  through both tabs. Screenshots go to e2e/shots/ (git-ignored). Needs Python 3 and an internet connection
- *  (TradingView and Yahoo). Close any open Mission Control first: the app allows one copy at a time. */
+ *  (TradingView and Yahoo). Close any open Options Desk first: the app allows one copy at a time. */
 import { _electron as electron, expect, test } from '@playwright/test'
 import { copyFileSync, mkdirSync, mkdtempSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'

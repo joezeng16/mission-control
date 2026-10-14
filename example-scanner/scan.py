@@ -1,11 +1,11 @@
-"""Example scanner for Mission Control: a template to replace with your own.
+"""Example scanner for Options Desk: a template to replace with your own.
 
-It writes FICTIONAL signals in the CSV format Mission Control reads (see the README, "Signals CSV format"). Nothing here
+It writes FICTIONAL signals in the CSV format Options Desk reads (see the README, "Signals CSV format"). Nothing here
 is real market data and nothing here is a trading rule: the tickers are real symbols, but every price, date, win rate
 and option quote is made up (prices come from a fixed table and a toy Black-Scholes model). Standard library only, no
 network access.
 
-Usage:  python scan.py [days_back]     (Mission Control runs it as `python scan.py 5` from this folder)
+Usage:  python scan.py [days_back]     (Options Desk runs it as `python scan.py 5` from this folder)
 Output: scans/signals_scan_YYYY-MM-DD_HHMM.csv and scans/signals_exits_YYYY-MM-DD_HHMM.csv (New York time in the name)
 """
 from __future__ import annotations
@@ -21,7 +21,7 @@ from pathlib import Path
 VERSION = 'Example scanner 1.0'
 HERE = Path(__file__).resolve().parent
 SCANS = HERE / 'scans'
-TAKE_PROFIT_LEFT = 0.5   # buy back at 50% of the credit (Mission Control's documented default)
+TAKE_PROFIT_LEFT = 0.5   # buy back at 50% of the credit (Options Desk's documented default)
 RATE = 0.04
 
 SCAN_COLUMNS = [
@@ -54,7 +54,7 @@ EXITS = [
     ('KO', 1, 'STOP LOSS', 2, 34, -0.091),
     ('MSFT', 2, 'TIME', 3, 45, 0.013),
 ]
-# Delta the example aims for at each level (the same defaults Mission Control documents).
+# Delta the example aims for at each level (the same defaults Options Desk documents).
 LEVEL_DELTA = {3: 0.30, 2: 0.20, 1: 0.15}
 WING_DELTA = 0.10
 
@@ -190,7 +190,7 @@ def exit_row(spec: tuple, days: list[date], rng: random.Random) -> dict[str, str
 
 
 def write_csv(path: Path, columns: list[str], rows: list[dict[str, str]]) -> None:
-    """Writes next to the target, then renames: Mission Control never sees a half-written file."""
+    """Writes next to the target, then renames: Options Desk never sees a half-written file."""
     tmp = path.with_suffix('.csv.tmp')
     with tmp.open('w', newline='', encoding='utf-8') as f:
         writer = csv.DictWriter(f, fieldnames=columns)
@@ -232,7 +232,7 @@ def main(argv: list[str]) -> int:
     scan_file = SCANS / f'signals_scan_{stamp}.csv'
     exits_file = SCANS / f'signals_exits_{stamp}.csv'
     write_csv(exits_file, EXIT_COLUMNS, exits)
-    write_csv(scan_file, SCAN_COLUMNS, signals)   # the scan file last: its name is what Mission Control looks for
+    write_csv(scan_file, SCAN_COLUMNS, signals)   # the scan file last: its name is what Options Desk looks for
     print(f'Saved scans/{scan_file.name} and scans/{exits_file.name}', flush=True)
     return 0
 

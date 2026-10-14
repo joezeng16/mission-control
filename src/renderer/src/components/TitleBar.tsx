@@ -18,7 +18,7 @@ export function TitleBar(): React.JSX.Element {
       <div className="flex w-[84px] items-center justify-center">
         <Logo size={20} />
       </div>
-      <div className="text-[12.5px] font-semibold tracking-tight text-fg">Mission Control</div>
+      <div className="text-[12.5px] font-semibold tracking-tight text-fg">Options Desk</div>
       <div className="ml-auto flex items-center gap-3 text-[11.5px] text-fg-3">
         <span className="inline-flex items-center gap-2">
           <span

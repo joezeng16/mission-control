@@ -14,7 +14,7 @@ describe('log lines', () => {
     expect(maskAccountNumbers('{"account_number":"000002222"} and 7AB01111.')).toBe('{"account_number":"••2222"} and ••1111.')
     for (const keep of [
       'order 8db7a7ca-78a9-4273-bbdc-e34cf4242378', '2026-10-13T18:00:00.000Z', 'port 47391', 'code 123456', '1760380800000 ms',
-      'C:\\Users\\someone\\AppData\\Roaming\\Mission Control (open source)\\logs\\main.log', 'out/main/index-B4x9Kq2a.js:123:45',
+      'D:\\Profiles\\someone\\AppData\\Roaming\\Options Desk (test)\\logs\\main.log', 'out/main/index-B4x9Kq2a.js:123:45',
       'started v1.0.0'
     ]) expect(maskAccountNumbers(keep)).toBe(keep)
   })

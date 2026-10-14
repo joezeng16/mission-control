@@ -1,5 +1,5 @@
-appId: io.github.missioncontrol.app
-productName: Mission Control
+appId: io.github.optionsdesk.app
+productName: Options Desk
 directories:
   buildResources: build
 # ship only the built app: out/ (main, preload, renderer), the icon and package.json
@@ -10,7 +10,7 @@ files:
 asarUnpack:
   - resources/**
 win:
-  executableName: MissionControl
+  executableName: OptionsDesk
 nsis:
   artifactName: ${name}-${version}-setup.${ext}
   shortcutName: ${productName}

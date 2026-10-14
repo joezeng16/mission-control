@@ -1,3 +1,4 @@
 import { defineConfig } from '@playwright/test'
 
-export default defineConfig({ testDir: 'e2e', timeout: 120_000, workers: 1, reporter: 'list' })
+// capture.spec.ts regenerates the README images; it runs only through playwright.capture.config.ts (npm run capture)
+export default defineConfig({ testDir: 'e2e', testIgnore: 'capture.spec.ts', timeout: 120_000, workers: 1, reporter: 'list' })

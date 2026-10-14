@@ -23,11 +23,11 @@ export interface ScannerDirOptions {
 
 /**
  * Where scan.py lives. MC_SCANNER_DIR wins; in development the repo's own example-scanner folder; in the installed app
- * <home>/MissionControl/scanner. The scanner saves its CSVs in `scans/` below it.
+ * <home>/OptionsDesk/scanner. The scanner saves its CSVs in `scans/` below it.
  */
 export function resolveScannerDir({ env, packaged, mainDir, home = homedir() }: ScannerDirOptions): string {
   if (env) return env
-  return packaged ? join(home, 'MissionControl', 'scanner') : join(mainDir, '..', '..', 'example-scanner')
+  return packaged ? join(home, 'OptionsDesk', 'scanner') : join(mainDir, '..', '..', 'example-scanner')
 }
 
 /** The scanner folder for this run of the app. */

@@ -22,7 +22,7 @@ function createWindow(): BrowserWindow {
     minHeight: 800,
     show: false,
     backgroundColor: '#05060a',
-    title: 'Mission Control',
+    title: 'Options Desk',
     autoHideMenuBar: true,
     titleBarStyle: 'hidden',
     titleBarOverlay: { color: '#05060a', symbolColor: '#a1a8b8', height: 36 },
@@ -64,13 +64,13 @@ function createWindow(): BrowserWindow {
   return win
 }
 
-/** The app id (Windows taskbar grouping) and its own settings folder. The folder name keeps this app's TradingView
- *  session, logs and single-instance lock apart from any other app that happens to be called "Mission Control". */
-export const APP_ID = 'io.github.missioncontrol.app'
-const USER_DATA_DIR = 'Mission Control (open source)'
+/** The app id (Windows taskbar grouping) and its own settings folder: it holds this app's TradingView session, logs and
+ *  single-instance lock. */
+export const APP_ID = 'io.github.optionsdesk.app'
+const USER_DATA_DIR = 'Options Desk'
 app.setPath('userData', join(app.getPath('appData'), USER_DATA_DIR))
 
-// one Mission Control at a time: a second copy would fight over the TradingView sign-in and the scan files
+// one Options Desk at a time: a second copy would fight over the TradingView sign-in and the scan files
 if (!app.requestSingleInstanceLock()) {
   app.quit()
 } else {

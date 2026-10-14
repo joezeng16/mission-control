@@ -63,7 +63,7 @@ describe('scanner folder', () => {
     const home = join('home', 'someone')
     expect(resolveScannerDir({ env: join('my', 'scanner'), packaged: true, mainDir, home })).toBe(join('my', 'scanner'))
     expect(resolveScannerDir({ env: null, packaged: false, mainDir, home })).toBe(join('repo', 'example-scanner'))
-    expect(resolveScannerDir({ env: null, packaged: true, mainDir, home })).toBe(join(home, 'MissionControl', 'scanner'))
+    expect(resolveScannerDir({ env: null, packaged: true, mainDir, home })).toBe(join(home, 'OptionsDesk', 'scanner'))
   })
 })
 

@@ -1,4 +1,4 @@
-/** A small log file for diagnosis: <userData>/logs/main.log, on Windows %APPDATA%\Mission Control (open source)\logs\main.log
+/** A small log file for diagnosis: <userData>/logs/main.log, on Windows %APPDATA%\Options Desk\logs\main.log
  *  (rolled to main.old.log past 1 MB). Every line is cleaned before it is written (token-like strings hidden,
  *  account-number-like strings cut to the last 4).
  *  Logging must never break the app, so every failure here is swallowed. */

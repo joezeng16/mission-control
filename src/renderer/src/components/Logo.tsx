@@ -1,6 +1,6 @@
 import { useId } from 'react'
 
-/** Mission Control mark: a green crescent with a rising spark. */
+/** Options Desk mark: a green crescent with a rising spark. */
 export function Logo({ size = 22 }: { size?: number }): React.JSX.Element {
   const raw = useId().replace(/[^a-zA-Z0-9]/g, '')
   const grad = `lg${raw}`

@@ -109,7 +109,7 @@ export const scannerActions = {
       if (state.running || (sameScan(state.result, result) && state.refreshError === null)) return
       patch((s) => (sameScan(s.result, result) ? { refreshError: null } : { result, refreshError: null, revision: s.revision + 1 }))
     } catch (err) {
-      console.error('Mission Control: re-reading the scan failed', err)
+      console.error('Options Desk: re-reading the scan failed', err)
       patch({ refreshError: `Couldn't re-read the scan files: ${message(err)}` })
     } finally {
       refreshing = false

@@ -1,62 +1,126 @@
-# Mission Control
+<div align="center">
 
-A desktop desk for options traders, built with Electron, React and TypeScript. It puts three things in one window:
+<img src="resources/icon.png" width="88" alt="Options Desk icon: a green crescent with a spark">
 
-- **Signals**: runs *your own* scanner script, shows the signals and exits it saved, and suggests a put or put credit
-  spread for each signal.
-- **TradingView**: the real tradingview.com, signed in with your own account, next to the signals. Click a row and the
-  chart switches to that stock.
-- **Calculator**: an options profit / loss calculator (cash-secured put, put credit spread, long call / LEAPS, covered
-  call) on Yahoo option chains, with a payoff chart, a date slider and the usual stats.
+# Options Desk
 
-The repo ships an **example scanner** that writes made-up signals, so the app works out of the box. Replace it with your
-own scanner: any script that writes the CSV format documented below.
+**Your own signal scanner, a real TradingView chart and an options profit/loss calculator, in one desktop window.**
 
-> Not financial advice. See the [disclaimer](#disclaimer).
+[![License: MIT](https://img.shields.io/badge/license-MIT-2ea44f)](LICENSE)
+[![Electron](https://img.shields.io/badge/Electron-44-47848F?logo=electron&logoColor=white)](https://www.electronjs.org/)
+[![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-7-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Platform: Windows](https://img.shields.io/badge/platform-Windows%2010%20%7C%2011-0078D6)](#requirements)
 
-## Screenshots
+<sub>Formerly mission-control.</sub>
 
-_Screenshots coming soon._ To make your own, run the smoke test (see [Tests](#tests)): it saves screenshots of every tab
-to `e2e/shots/`.
+<img src="docs/images/hero.png" width="100%" alt="Options Desk: a table of scanner signals on the left, a TradingView daily chart of the selected stock on the right">
+
+<img src="docs/images/demo.gif" width="100%" alt="Clicking three signals in turn switches the TradingView chart; then the calculator opens and the date slider bends the profit and loss curve toward expiry">
+
+<sub>Example data: the signals come from the bundled example scanner and are made up. Charts and option quotes are public market data.</sub>
+
+</div>
+
+## Why
+
+- **Bring your own scanner.** Any script that writes a CSV becomes a live signal list. Options Desk ships no trading
+  rules: it shows what *your* scanner finds.
+- **The real TradingView, right beside the list.** Click a signal and your own signed-in chart, with your layouts and
+  indicators, jumps to that stock. No retyping tickers in another window.
+- **Check the trade before you place it.** One click opens the suggested put or put credit spread in a profit/loss
+  calculator built on live option chains.
 
 ## Features
 
-- **Run scan** starts your scanner (`python scan.py 5` in your scanner folder), streams its output while it runs, and can
-  cancel it. Scans saved outside the app are picked up when the window comes back into focus.
-- **Signals table**: level 1/3 to 3/3, price and move since the signal, the suggested put (strike, expiry, mid, bid/ask),
-  what one spread collects and can lose, the bid/ask gap, the stock's historical win rate at that level, and the next
-  earnings date. Filter by level, sort by any column. Borderline signals and near misses are flagged "Check chart".
-- **Exits list**: take-profit, stop-loss and time exits your scanner reports.
-- **Clear warnings**: scans run outside market hours (last-trade prices), old scans, missing CSV columns, unreadable rows,
-  and the lines your scanner printed about skipped stocks.
-- **TradingView pane**: daily, 4-hour, 1-hour and 30-minute charts; your saved chart layout is kept; back, reload and
-  open-in-browser buttons. Sign in once; the session is remembered.
-- **Calculator**: Black-Scholes pricing, implied volatility from quotes, P/L at expiry and on any date before it, a
-  what-if volatility slider, breakevens, max profit / loss, chance of profit (model), return on cash, and a good-till-canceled
-  buy-back target. Every signal row has a **Calculate** button that opens that trade, filled in.
-- All market times are shown in New York time (ET). Keyboard: Ctrl+1 / Ctrl+2 switch tabs.
+<table>
+<tr>
+<td width="46%" valign="top">
 
-## Requirements
+### Signals from your scanner
 
-- **Node.js 22 or newer** (and npm).
-- **Python 3** to run the example scanner (standard library only). Your own scanner can use anything Python can run.
-- **Windows 10/11** is the tested platform, and the packaging config builds a Windows installer. Development mode may
-  work on macOS and Linux but is untested there.
-- An internet connection for TradingView and Yahoo.
+- **Run scan** starts your script, streams its output and can cancel it.
+- One row per signal: strength (1/3 to 3/3), price and move, the suggested put or spread, credit and risk, bid/ask gap,
+  win rate and next earnings.
+- Filter by level, sort any column. Borderline signals and near misses are flagged **Check chart**.
+- An exits list for take-profit, stop-loss and time exits.
+- Plain warnings for after-hours scans, old scans, missing columns and skipped stocks.
 
-## Getting started
+</td>
+<td width="54%" valign="top">
+<img src="docs/images/signals.png" alt="The signals table up close, with the tooltip of a borderline signal open">
+</td>
+</tr>
+<tr>
+<td width="54%" valign="top">
+<img src="docs/images/calculator.png" alt="The calculator showing a put credit spread: payoff at expiry and today, a date slider, and stat tiles">
+</td>
+<td width="46%" valign="top">
+
+### Options profit/loss calculator
+
+- Cash-secured put, put credit spread, long call / LEAPS and covered call, on any ticker.
+- Strike lists show each option's mid and the model odds it is hit.
+- P/L at expiry and on any date before it, plus a what-if slider for bigger or smaller price swings.
+- Max profit and loss, breakeven, model odds, cash needed, return on cash and a good-till-canceled buy-back target.
+- **Calculate** on any signal row opens that trade, filled in.
+
+</td>
+</tr>
+<tr>
+<td valign="top">
+
+### TradingView pane
+
+- The real tradingview.com in its own pane: sign in once and your session, layouts and indicators stay.
+- Daily, 4-hour, 1-hour and 30-minute buttons, a symbol box, back, reload and open-in-browser.
+- Works signed out too.
+
+</td>
+<td valign="top">
+
+### Built for daily use
+
+- Scans saved outside the app (on a schedule, say) show up when the window regains focus.
+- Market times in New York time (ET), with a market open / closed clock.
+- Ctrl+1 / Ctrl+2 switch tabs. One copy runs at a time.
+- A browser preview with sample data for working on the screens.
+
+</td>
+</tr>
+</table>
+
+## How it works
+
+```mermaid
+flowchart LR
+    scanner["Your scanner<br/>scan.py"] -- "writes" --> csv[("scans/<br/>signals_scan_*.csv<br/>signals_exits_*.csv")]
+    csv -- "newest file" --> desk["Options Desk"]
+    desk -- "Run scan:<br/>python scan.py 5" --> scanner
+    desk -- "click a signal" --> tv["TradingView pane<br/>your own chart and sign-in"]
+    desk -- "Calculate" --> calc["P/L calculator"]
+    yahoo["Yahoo Finance<br/>quotes and option chains<br/>about 15 min delayed"] --> calc
+```
+
+The signals table shows your scanner's own prices, from when it ran. Only the calculator fetches prices, from Yahoo.
+
+## Quick start
+
+You need **Node.js 22+** and **Python 3**. In a clone of this repository:
 
 ```bash
 npm install
-npm run dev          # the app with hot reload, using example-scanner/ as the scanner folder
-npm run dev:web      # the screens alone in a browser with sample data: http://127.0.0.1:5199
+npm run dev          # the app, using example-scanner/ as the scanner
 ```
 
-In the browser preview, `?mock=live` opens the market-hours sample scan, `?tv=out` shows the signed-out TradingView
-state, and `?clock=open` / `?clock=closed` move the app clock to 10:30 AM / 7:00 PM ET.
+Press **Run scan**: the example scanner writes made-up signals and the table fills. Click a row to chart it, or
+**Calculate** to model the trade. Because the example's prices are fictional, its strikes sit far from the real market
+in the calculator; pick other strikes there, or plug in your own scanner.
 
-**If the app does not open** and Electron behaves like plain Node, your terminal has `ELECTRON_RUN_AS_NODE` set (some
-editors' integrated terminals set it). Clear it for the command:
+<details>
+<summary><b>The app does not open, or Electron acts like plain Node</b></summary>
+
+Your terminal has `ELECTRON_RUN_AS_NODE` set (some editors' built-in terminals set it). Clear it for the command:
 
 ```bash
 env -u ELECTRON_RUN_AS_NODE npm run dev                 # bash / Git Bash / macOS / Linux
@@ -66,56 +130,26 @@ env -u ELECTRON_RUN_AS_NODE npm run dev                 # bash / Git Bash / macO
 Remove-Item Env:ELECTRON_RUN_AS_NODE; npm run dev        # PowerShell
 ```
 
-The same applies to `npm run build:*` and the Playwright smoke test.
+The same applies to `npm run build:*`, `npm run capture` and the Playwright smoke test.
 
-### Build
+</details>
 
-```bash
-npm run build        # typecheck + compile to out/
-npm run build:dir    # unpacked Windows app in dist/win-unpacked/MissionControl.exe
-npm run build:win    # Windows installer in dist/
-```
+### Requirements
 
-Close Mission Control before `build:dir` / `build:win`: a running copy can't be replaced (the build script checks).
-
-### Tests
-
-```bash
-npm test                         # unit tests (Vitest)
-npm run typecheck                # TypeScript, main and renderer
-npm run build && npx playwright test e2e   # smoke test of the built app
-```
-
-The smoke test launches the built app with a fresh copy of the example scanner, runs a scan, opens the chart and the
-calculator, and fails on any error on the app page. It needs Python 3 and an internet connection, and Mission Control
-must not be open (the app allows one copy at a time).
-
-## Configuration
-
-| Environment variable | Default | What it does |
-| --- | --- | --- |
-| `MC_SCANNER_DIR` | development: `<repo>/example-scanner`; installed app: `<home>/MissionControl/scanner` | The folder that holds `scan.py`. Its CSVs go in `scans/` inside it. |
-| `MC_PYTHON` | `python` on Windows, `python3` elsewhere (from `PATH`) | Full path to the Python that runs the scanner. |
-
-If the scanner folder or `scan.py` is missing, the Signals tab says so and names the folder it looked in.
-
-Where the app keeps its own data: the settings folder `Mission Control (open source)` under your app-data folder
-(`%APPDATA%` on Windows). It holds the TradingView session and a small log, `logs/main.log` (rolled over at 1 MB).
-
-**Trading defaults** live in one file, [`src/shared/defaults.ts`](src/shared/defaults.ts): the put delta per signal level
-(3/3: 0.30, 2/3: 0.20, 1/3: 0.15), the delta for a typed ticker (0.30), the spread's bought put (0.10 delta), your
-take-profit rule (buy back at 50% of what you collected), the "wide" bid/ask threshold (15% of the mid), how many trading
-days the scanner is asked to look back (5), and the trade count under which a win rate is greyed out (10). They are
-common conventions, not recommendations: change them to match your own rules.
+- **Node.js 22 or newer** (and npm).
+- **Python 3** for the example scanner (standard library only). Your own scanner can use anything Python can run.
+- **Windows 10/11** is the tested platform, and the packaging config builds a Windows installer. Development mode may
+  work on macOS and Linux but is untested there.
+- An internet connection for TradingView and Yahoo.
 
 ## Plug in your own scanner
 
-Mission Control does not ship any trading rules. It runs whatever `scan.py` you give it and shows what that script saves.
-Start from [`example-scanner/scan.py`](example-scanner/scan.py): it is a self-contained template (standard library, no
-network) that writes fictional data in the right format. Because its prices are made up, the strikes it suggests won't
-match the real market when you press Calculate; your own scanner fixes that.
+Options Desk runs whatever `scan.py` you give it and shows what that script saves. Start from
+[`example-scanner/scan.py`](example-scanner/scan.py): a self-contained template (standard library, no network) that
+writes fictional data in the right format. Then point `MC_SCANNER_DIR` at your folder.
 
-The contract:
+<details>
+<summary><b>The contract: how the app runs your script</b></summary>
 
 1. The app runs `python scan.py <days_back>` (`days_back` is 5 by default) with the scanner folder as the working
    directory. Anything you `print` shows up live under the header; print with `flush=True` (the app also sets
@@ -130,14 +164,17 @@ The contract:
    exits file before the scan file.
 6. A run is stopped after 15 minutes. Cancel stops your script and everything it started.
 
-You can also run your scanner on a schedule outside the app; the Signals tab re-reads the newest files when it opens and
+You can also run your scanner on a schedule outside the app: the Signals tab re-reads the newest files when it opens and
 when the window comes back into focus.
 
-### Signals CSV format
+</details>
 
-`scans/signals_scan_YYYY-MM-DD_HHMM.csv`, one row per signal, with a header row. Column order does not matter and extra
-columns are ignored. Empty cells and `nan`, `none`, `null` read as blank. Booleans are `True` / `1` / `yes`, anything
-else is false. Dates are `YYYY-MM-DD` (a trailing time such as `00:00:00` is ignored).
+<details>
+<summary><b>Signals CSV columns</b> (<code>scans/signals_scan_YYYY-MM-DD_HHMM.csv</code>)</summary>
+
+One row per signal, with a header row. Column order does not matter and extra columns are ignored. Empty cells and
+`nan`, `none`, `null` read as blank. Booleans are `True` / `1` / `yes`, anything else is false. Dates are `YYYY-MM-DD`
+(a trailing time such as `00:00:00` is ignored).
 
 "Required" columns: a row without them is skipped and counted. "Expected" columns: if the file lacks one, the app shows a
 warning naming it.
@@ -173,9 +210,20 @@ warning naming it.
 | `tested_spread_won`, `tested_spread_mid`, `tested_spread_natural` | optional | `75`, `6`, `-2` | The same backtest for the credit spread: percent won, average result as a percent of max loss at the mids, and at bid/ask prices. |
 | `scanner` | optional | `My scanner 2.1` | Your scanner's name and version, shown next to the title. |
 
-### Exits CSV format
+Two example rows (made up), with the required and the most useful optional columns:
 
-`scans/signals_exits_YYYY-MM-DD_HHMM.csv`, same stamp as the scan file. All columns except `forming` are required.
+```csv
+ticker,level,kind,date,days_ago,price_then,price_now,won_pct,trades,next_earn,borderline,detail,put_exp,put_strike,put_bid,put_ask,put_mid,put_wing_strike,put_wing_mid,put_credit,put_width,scanner
+NVDA,3/3,tagged,2026-03-10,1,121.30,122.37,88.0,24,2026-04-28,False,,2026-04-17,115,3.95,4.15,4.05,105,1.02,3.03,10,My scanner 1.0
+AMZN,1/3,tagged,2026-03-06,3,174.40,179.79,90.0,21,2026-04-30,True,Rule B right at its threshold,2026-04-17,162.5,1.38,1.46,1.42,155,0.45,0.97,7.5,My scanner 1.0
+```
+
+</details>
+
+<details>
+<summary><b>Exits CSV columns</b> (<code>scans/signals_exits_YYYY-MM-DD_HHMM.csv</code>)</summary>
+
+Same stamp as the scan file. All columns except `forming` are required.
 
 | Column | Example | Meaning |
 | --- | --- | --- |
@@ -190,7 +238,119 @@ warning naming it.
 | `move` | `0.048` | `price / enter_price - 1`, as a **fraction**. |
 | `forming` | `False` | `True` = the exit may fire at today's close. |
 
-## Troubleshooting
+Example rows (made up):
+
+```csv
+ticker,level,enter,enter_price,tag,date,days_ago,price,move,forming
+JPM,1/3,2026-02-10,230.50,TP,2026-03-10,1,241.56,0.048,False
+KO,1/3,2026-02-04,73.10,STOP LOSS,2026-03-09,2,66.45,-0.091,False
+```
+
+</details>
+
+## Configuration
+
+| Environment variable | Default | What it does |
+| --- | --- | --- |
+| `MC_SCANNER_DIR` | development: `<repo>/example-scanner`; installed app: `<home>/OptionsDesk/scanner` | The folder that holds `scan.py`. Its CSVs go in `scans/` inside it. |
+| `MC_PYTHON` | `python` on Windows, `python3` elsewhere (from `PATH`) | Full path to the Python that runs the scanner. |
+
+If the scanner folder or `scan.py` is missing, the Signals tab says so and names the folder it looked in.
+
+The app keeps its own data in the settings folder `Options Desk` under your app-data folder (`%APPDATA%` on Windows):
+the TradingView session and a small log, `logs/main.log` (rolled over at 1 MB).
+
+<details>
+<summary><b>Trading defaults</b> (one file: <a href="src/shared/defaults.ts"><code>src/shared/defaults.ts</code></a>)</summary>
+
+The put delta per signal level (3/3: 0.30, 2/3: 0.20, 1/3: 0.15), the delta for a typed ticker (0.30), the spread's
+bought put (0.10 delta), the take-profit buy-back (50% of what you collected), the "wide" bid/ask threshold (15% of the
+mid), how many trading days the scanner is asked to look back (5), and the trade count under which a win rate is greyed
+out (10). They are common conventions, not recommendations: change them to match your own rules.
+
+</details>
+
+## Development
+
+```bash
+npm run dev:web      # the screens alone in a browser with sample data: http://127.0.0.1:5199
+npm test             # unit tests (Vitest)
+npm run typecheck    # TypeScript, main and renderer
+npm run build && npx playwright test e2e   # smoke test of the built app
+npm run build:dir    # unpacked Windows app in dist/win-unpacked/OptionsDesk.exe
+npm run build:win    # Windows installer in dist/
+npm run capture      # rebuild the README images in docs/images/ (needs Pillow: pip install pillow)
+```
+
+<details>
+<summary><b>Details</b></summary>
+
+- In the browser preview, `?mock=live` opens the market-hours sample scan, `?tv=out` shows the signed-out TradingView
+  state, and `?clock=open` / `?clock=closed` move the app clock to 10:30 AM / 7:00 PM ET.
+- The smoke test launches the built app with a fresh copy of the example scanner, runs a scan, opens the chart and the
+  calculator, and fails on any error on the app page. It needs Python 3 and an internet connection.
+- `npm run capture` drives the built app at 1600 x 1000 against the example scanner and composites the TradingView view
+  into the window images ([`e2e/capture.spec.ts`](e2e/capture.spec.ts), [`scripts/build_images.py`](scripts/build_images.py)).
+  It refuses to run while TradingView is signed in inside the app, so no account ever shows up in the images, and it
+  switches that signed-out TradingView session to the dark theme. `OD_CAPTURE_SCALE` (default 2) sets the capture's pixel
+  density.
+- Close Options Desk before `build:dir`, `build:win`, the smoke test or `capture`: the app allows one copy at a time, and
+  a running copy can't be replaced (the build script checks).
+
+</details>
+
+## FAQ
+
+<details>
+<summary><b>Does Options Desk place trades or connect to a brokerage account?</b></summary>
+
+No. It never places orders and never asks for a brokerage login. It shows your scanner's results, a chart and a
+calculator; you trade wherever you trade.
+
+</details>
+
+<details>
+<summary><b>Do I need a TradingView account?</b></summary>
+
+No. The chart works signed out. Sign in (the rail's **Sign in to TradingView** button) to get your saved layouts,
+indicators and whatever your TradingView plan includes. The sign-in happens on TradingView's own pages.
+
+</details>
+
+<details>
+<summary><b>Where do the prices come from?</b></summary>
+
+The signals table shows the prices your scanner wrote, from when it ran. The calculator fetches quotes and option chains
+from Yahoo through the unofficial [`yahoo-finance2`](https://github.com/gadicc/node-yahoo-finance2) library: about 15
+minutes delayed for options.
+
+</details>
+
+<details>
+<summary><b>Can my scanner be written in another language?</b></summary>
+
+The app runs `python scan.py`, but `scan.py` can be a few lines that start your real scanner (any language) and wait
+for it, as long as the CSV files end up in `scans/`.
+
+</details>
+
+<details>
+<summary><b>Does it run on macOS or Linux?</b></summary>
+
+Development mode (`npm run dev`) may work, but it is untested there, and the packaging config only builds for Windows.
+
+</details>
+
+<details>
+<summary><b>Upgrading from the earlier name?</b></summary>
+
+The settings folder is now `Options Desk` and the installed app's default scanner folder is `<home>/OptionsDesk/scanner`.
+Sign in to TradingView once more, and move your scanner folder there (or point `MC_SCANNER_DIR` at it).
+
+</details>
+
+<details>
+<summary><b>Troubleshooting</b></summary>
 
 - **"No scanner found"** on the Signals tab: set `MC_SCANNER_DIR` to the folder that holds your `scan.py` (or copy
   `example-scanner/scan.py` there) and open the app again.
@@ -199,6 +359,8 @@ warning naming it.
 - **Google refuses the sign-in inside the app**: set a password on your TradingView account (Profile, then Password) and
   sign in with email instead.
 - **A blank window or other oddities**: look in `logs/main.log` in the app's settings folder.
+
+</details>
 
 ## Security notes
 
@@ -225,12 +387,12 @@ warning naming it.
 
 This software is for information and education only. It is **not financial advice**, and nothing in it is a
 recommendation to buy or sell any security or option. Options involve substantial risk and are not suitable for everyone;
-you can lose more than you expect. The example scanner's data is fictional. Model numbers such as "chance of profit" are
+you can lose more than you expect. The example scanner's data is fictional. Model numbers such as "Market's odds" are
 estimates from a pricing model, not predictions. Check every price with your broker before you trade. You are solely
 responsible for your trades.
 
-Mission Control is an independent project. It is **not affiliated with, endorsed by or sponsored by TradingView or
-Yahoo**. Market data comes from Yahoo through the unofficial [`yahoo-finance2`](https://github.com/gadicc/node-yahoo-finance2)
+Options Desk is an independent project. It is **not affiliated with, endorsed by or sponsored by TradingView or Yahoo**.
+Market data comes from Yahoo through the unofficial [`yahoo-finance2`](https://github.com/gadicc/node-yahoo-finance2)
 library: it is delayed (about 15 minutes for options), may be incomplete or wrong, and may stop working if Yahoo changes
 its service. Use of TradingView and Yahoo is subject to their own terms.
 

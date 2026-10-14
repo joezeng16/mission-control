@@ -7,7 +7,7 @@ const PREVIEW_BUILD: boolean = typeof __MC_WEB_PREVIEW__ !== 'undefined' && __MC
 
 export const isPreview: boolean = PREVIEW_BUILD && (typeof window === 'undefined' || window.mc == null)
 
-const BROKEN = "Mission Control's connection to its back end is missing. Close the app and open it again."
+const BROKEN = "Options Desk's connection to its back end is missing. Close the app and open it again."
 
 function brokenApi(): McApi {
   const fail = (): Promise<never> => Promise.reject(new Error(BROKEN))

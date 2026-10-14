@@ -1,10 +1,10 @@
 {
-  "name": "mission-control",
-  "productName": "Mission Control",
+  "name": "options-desk",
+  "productName": "Options Desk",
   "version": "1.0.0",
-  "description": "A desktop desk for options traders: run your own signal scanner, chart the results in your signed-in TradingView, and model trades in an options profit/loss calculator.",
+  "description": "A desktop app for options traders: run your own signal scanner, chart the results in your signed-in TradingView, and model trades in an options profit/loss calculator.",
   "main": "./out/main/index.js",
-  "author": "Mission Control contributors",
+  "author": "Options Desk contributors",
   "license": "MIT",
   "private": true,
   "scripts": {
@@ -17,7 +17,8 @@
     "test": "vitest run",
     "build": "npm run typecheck && electron-vite build",
     "build:win": "node scripts/guard-running.mjs && npm run build && electron-builder --win",
-    "build:dir": "node scripts/guard-running.mjs && npm run build && electron-builder --win --dir"
+    "build:dir": "node scripts/guard-running.mjs && npm run build && electron-builder --win --dir",
+    "capture": "electron-vite build && playwright test -c playwright.capture.config.ts"
   },
   "devDependencies": {
     "@electron-toolkit/preload": "3.0.2",

@@ -8,11 +8,12 @@ coverage/
 
 # test output
 e2e/shots/
+e2e/capture-raw/
 test-results/
 playwright-report/
 
 # what the example scanner writes when it runs
 example-scanner/scans/
-example-scanner/__pycache__/
+__pycache__/
 .env
 .env.*
