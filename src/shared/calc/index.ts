@@ -1,0 +1,10 @@
+/** Options P/L calculator, pure TypeScript (no Node/Electron): Black-Scholes pricing, payoff curves, stats and strike picks. */
+export * from './types'
+export { DEFAULT_RATE, IV_FLOOR_HIT, IV_MAX, IV_MIN, bsDelta, bsGreeks, bsPrice, impliedVol, intrinsic, normCdf, optionValue, type OptionGreeks, type OptionKind } from './bs'
+export { addDays, daysBetween, isIsoDate } from './dates'
+export { MAX_CONTRACTS, MAX_DAYS, buildPosition, validateInputs } from './strategies'
+export { MULTIPLIER, breakevens, curve, daysToExpiry, greeks, plAt, plAtExpiry, sharesPl, shiftedIv, strikes, type CurvePoint } from './payoff'
+export { stats } from './stats'
+export { hoverAt, hoverHeader, hoverPrice, niceAxis, priceRange, yRange, type HoverReadout, type PriceRange } from './chart'
+export { FALLBACK_IV, chainIsLive, chainIv, lastTradeIv, nearestExpiry, pickByDelta, pickerIv, rowsAreLive } from './pick'
+export { chancePct, money, perShare, percent, signedMoney, signedPercent } from './format'

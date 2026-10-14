@@ -1,0 +1,30 @@
+appId: io.github.missioncontrol.app
+productName: Mission Control
+directories:
+  buildResources: build
+# ship only the built app: out/ (main, preload, renderer), the icon and package.json
+files:
+  - out/**
+  - resources/**
+  - package.json
+asarUnpack:
+  - resources/**
+win:
+  executableName: MissionControl
+nsis:
+  artifactName: ${name}-${version}-setup.${ext}
+  shortcutName: ${productName}
+  uninstallDisplayName: ${productName}
+  createDesktopShortcut: always
+# Electron fuses: the packaged exe can't be run as plain Node, ignores NODE_OPTIONS / --inspect,
+# encrypts its cookies (the TradingView sign-in) and only loads its own checked app.asar
+electronFuses:
+  runAsNode: false
+  enableNodeOptionsEnvironmentVariable: false
+  enableNodeCliInspectArguments: false
+  enableCookieEncryption: true
+  enableEmbeddedAsarIntegrityValidation: true
+  onlyLoadAppFromAsar: true
+  # stays on: the page is loaded from file:// inside app.asar, and with it off Electron can't read it (blank window)
+  grantFileProtocolExtraPrivileges: true
+npmRebuild: false

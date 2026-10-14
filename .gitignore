@@ -1,0 +1,18 @@
+node_modules/
+out/
+dist/
+release/
+.vite/
+coverage/
+*.log
+
+# test output
+e2e/shots/
+test-results/
+playwright-report/
+
+# what the example scanner writes when it runs
+example-scanner/scans/
+example-scanner/__pycache__/
+.env
+.env.*
