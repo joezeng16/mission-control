@@ -62,6 +62,15 @@ describe('level-aware strike picks', () => {
     expect(defaultPicks('csp', other, TODAY, ctx).short).toBe(pickByDelta(rowsOf(other), 'put', 0.15, S, 45 / 365)?.strike)
   })
 
+  it("a live signal's strike far from today's price (stale scan, example data) is ignored: the level delta is used", () => {
+    const above = contextFor(request(1, true, 105, EXP))                 // a sold put above the stock
+    expect(defaultPicks('csp', chain, TODAY, above).short).toBe(deltaPut(chain, 0.15))
+    const moved = { ...chain, underlying: 200 }                           // the stock is now twice the scan's price
+    const old = contextFor(request(1, true, 92.5, EXP))
+    expect(defaultPicks('csp', moved, TODAY, old).short).not.toBe(92.5)
+    expect(defaultPicks('csp', chain, TODAY, old).short).toBe(92.5)      // still in range: kept
+  })
+
   it("the spread sells the same put and buys the 0.10 delta wing below it (or the next strike down)", () => {
     const ctx = contextFor(request(2, false))
     const p = defaultPicks('put_credit_spread', chain, TODAY, ctx)

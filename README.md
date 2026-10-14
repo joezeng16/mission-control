@@ -106,16 +106,18 @@ The signals table shows your scanner's own prices, from when it ran. Only the ca
 
 ## Quick start
 
-You need **Node.js 22+** and **Python 3**. In a clone of this repository:
+You need **Node.js 22+** and **Python 3**.
 
 ```bash
+git clone https://github.com/joezeng16/options-desk.git
+cd options-desk
 npm install
 npm run dev          # the app, using example-scanner/ as the scanner
 ```
 
 Press **Run scan**: the example scanner writes made-up signals and the table fills. Click a row to chart it, or
-**Calculate** to model the trade. Because the example's prices are fictional, its strikes sit far from the real market
-in the calculator; pick other strikes there, or plug in your own scanner.
+**Calculate** to model the trade. The example's prices are fictional, so when a signal's strike is far from today's real
+price the calculator ignores it and picks a strike by the level's delta from the live chain instead.
 
 <details>
 <summary><b>The app does not open, or Electron acts like plain Node</b></summary>

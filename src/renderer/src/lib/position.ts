@@ -105,9 +105,17 @@ export function priceOf(c: OptionContract, chain: Chain, today: string): number 
 const has = (list: OptionContract[], k: number | null): k is number => k != null && list.some((c) => c.strike === k)
 
 /** The scanner's own strike, when its quote was live and the calculator is on the scanner's expiry. */
+// A scan's sold put is only reused while it still makes sense at today's price: not above the stock, and not more than
+// 40% below it. Outside that band the scan is stale (an old file, or the example scanner's made-up prices), so the
+// calculator picks by delta from the live chain instead.
+const SIGNAL_STRIKE_MIN = 0.6
+const SIGNAL_STRIKE_MAX = 1.0
+
 function signalStrike(chain: Chain, ctx: PickContext): number | null {
   const a = ctx.anchor
-  return a && a.expiry === chain.expiry && has(chain.puts, a.strike) ? a.strike : null
+  if (!a || a.expiry !== chain.expiry || !has(chain.puts, a.strike)) return null
+  const ratio = a.strike / chain.underlying
+  return ratio >= SIGNAL_STRIKE_MIN && ratio <= SIGNAL_STRIKE_MAX ? a.strike : null
 }
 
 /** The scanner's own wing, when the calculator is on its sold put and expiry and the chain has that strike below it. */
